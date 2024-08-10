@@ -2,6 +2,11 @@ import React from 'react';
 import Header from './Header';
 import { useState,useRef } from 'react';
 import { checkValidData } from '../utils/Validate';
+import {createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../utils/firebase';
+
+
+
 
 const Login = () => {
 
@@ -16,7 +21,7 @@ const [errorMessage,setErrorMessage] = useState(null)
 
  const email  = useRef(null);
 const password = useRef(null);
-
+const name = useRef(null);
 const handleButtonClick = ()=>{
 
 //validate the form data
@@ -28,6 +33,45 @@ const handleButtonClick = ()=>{
  
 const message = checkValidData(email.current.value,password.current.value)
 setErrorMessage(message);
+
+
+if(message) return;
+
+
+//sign up and sign in logic
+
+if(!isSignInForm){
+
+createUserWithEmailAndPassword(
+   auth,
+    email.current.value, 
+    password.current.value)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    console.log(user)
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+     setErrorMessage(errorCode + "-" +  errorMessage)
+    
+  });
+
+
+}
+
+
+else{
+
+//sign in logic
+
+
+
+}
+
+
+
+
 }
 
 
@@ -65,6 +109,7 @@ aria-hidden="true"
 {!isSignInForm && (
    
    <input 
+   ref={name}
    type="text" 
    placeholder='Full Name' 
    className=' m-2 p-1 bg-zinc-800' />
