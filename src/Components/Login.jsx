@@ -2,13 +2,19 @@ import React from 'react';
 import Header from './Header';
 import { useState,useRef } from 'react';
 import { checkValidData } from '../utils/Validate';
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../utils/firebase';
-
-
+import { useNavigate } from 'react-router-dom';
+import {updateProfile } from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 
 const Login = () => {
+
+
+const navigate = useNavigate();
+const dispatch = useDispatch();
 
 const [isSignInForm,setIsSignInForm] = useState(true);
 
@@ -47,8 +53,37 @@ createUserWithEmailAndPassword(
     email.current.value, 
     password.current.value)
   .then((userCredential) => {
+
     const user = userCredential.user;
+
+
+    updateProfile(user, {
+      displayName:name.current.value, photoURL: "https://www.springboard.com/blog/wp-content/uploads/2022/06/what-does-a-coder-do-2022-career-guide.jpg"
+    }).then(() => {
+      const {uid,email,displayName,photoURL} = auth.currentUser;
+     
+     
+         dispatch(
+          addUser({
+            uid: uid,
+             email: email,displayName:displayName,photoURL:photoURL
+            
+            }))
+ 
+
+
+
+      navigate("/browse")
+    }).catch((error) => {
+       setErrorMessage(error.message)
+    });
+
+
+
+
+
     console.log(user)
+    
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -64,8 +99,17 @@ createUserWithEmailAndPassword(
 else{
 
 //sign in logic
-
-
+signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+  .then((userCredential) => {
+    const user = userCredential.user;
+console.log(user)
+  navigate("/browse")
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErrorMessage(errorCode + "-" +  errorMessage)
+  });
 
 }
 
