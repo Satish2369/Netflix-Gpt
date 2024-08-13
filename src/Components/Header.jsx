@@ -3,9 +3,11 @@ import { signOut } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import {  useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-
-
+import { useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { addUser,removeUser } from '../utils/userSlice';
+import { LOGO } from '../utils/constants';
 
 
 
@@ -16,6 +18,7 @@ import { useSelector } from 'react-redux';
 
 
 const Header= () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   
   const user = useSelector(store => store.user);
@@ -26,7 +29,6 @@ const Header= () => {
 const handleSignOut =()=>{
  
   signOut(auth).then(() => {
-    navigate("/")
   }).catch((error) => {
     navigate("/error")
   });
@@ -35,12 +37,42 @@ const handleSignOut =()=>{
 }
 
 
+useEffect(()=>{
+
+ const unsubscribe =  onAuthStateChanged(auth, (user) => {
+      if (user) {
+      
+        
+       const {uid,email,displayName,photoURL} = user;
+          dispatch(addUser({
+              uid: uid,
+              email: email,
+              displayName:displayName,photoURL:photoURL
+            }),
+
+          )
+          navigate("/browse");
+      } 
+      else {
+        dispatch(removeUser());
+          navigate("/")
+      }
+    });
+
+
+    // unsusbcribe when componnt unmounts
+return () => unsubscribe();
+
+
+},[])
+
+
 
 
 
   return (
-    <div className='w-screen absolute px-8 py-2  bg-gradient-to-b from-black z-10 flex justify-between'>
-  <img src="https://1000logos.net/wp-content/uploads/2017/05/Netflix-Logo.png" className='h-18 w-44  ' alt="logo" />
+    <div className='w-full absolute px-8 py-2  bg-gradient-to-b from-black z-10 flex justify-between  '>
+  <img src={LOGO} className='h-18 w-44  ' alt="logo" />
 
 
 { user && (

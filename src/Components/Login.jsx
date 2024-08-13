@@ -4,25 +4,20 @@ import { useState,useRef } from 'react';
 import { checkValidData } from '../utils/Validate';
 import {createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../utils/firebase';
-import { useNavigate } from 'react-router-dom';
 import {updateProfile } from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
-
+import { USER_AVATAR } from '../utils/constants';
 
 const Login = () => {
 
 
-const navigate = useNavigate();
+
 const dispatch = useDispatch();
 
 const [isSignInForm,setIsSignInForm] = useState(true);
 
 const [errorMessage,setErrorMessage] = useState(null)
-
-
-
-
 
 
  const email  = useRef(null);
@@ -58,7 +53,9 @@ createUserWithEmailAndPassword(
 
 
     updateProfile(user, {
-      displayName:name.current.value, photoURL: "https://www.springboard.com/blog/wp-content/uploads/2022/06/what-does-a-coder-do-2022-career-guide.jpg"
+
+      displayName:name.current.value,
+       photoURL: USER_AVATAR
     }).then(() => {
       const {uid,email,displayName,photoURL} = auth.currentUser;
      
@@ -73,7 +70,7 @@ createUserWithEmailAndPassword(
 
 
 
-      navigate("/browse")
+     
     }).catch((error) => {
        setErrorMessage(error.message)
     });
@@ -102,8 +99,7 @@ else{
 signInWithEmailAndPassword(auth, email.current.value, password.current.value)
   .then((userCredential) => {
     const user = userCredential.user;
-console.log(user)
-  navigate("/browse")
+
   })
   .catch((error) => {
     const errorCode = error.code;
