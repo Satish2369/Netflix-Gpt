@@ -1,5 +1,5 @@
 import React from 'react'
-// import MovieList from './MovieList'
+
 import { useSelector } from 'react-redux'
 import MovieList from './MovieList'
 
@@ -17,13 +17,19 @@ const movies = useSelector(store => store.movies)
   return (
 
     movies.nowPlayingMovies && (
-    <div className='absolute top-[88vh]   z-50 '>   
+    <div className=' bg-black'>   
       
-    <MovieList title={"Now Playing"}  movies={movies.nowPlayingMovies}  />
-    <MovieList title={"Trending"}  movies={movies.nowPlayingMovies}  />
-    <MovieList title={"Upcoming"}  movies={movies.nowPlayingMovies}  />
+      <div className='-mt-32 relative z-20'>
+      <MovieList title={"Now Playing"}  movies={movies?.nowPlayingMovies}  />
+      </div>
+       {console.log(movies.PopularMovies)
+       }
+      <MovieList title={"Popular"}  movies={movies?.popularMovies}  />
     <MovieList title={"Horror"}  movies={movies.nowPlayingMovies}  />
     <MovieList title={"Love and Fantasy"}  movies={movies.nowPlayingMovies}  />
+
+
+     
 
 
 

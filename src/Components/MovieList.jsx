@@ -7,11 +7,11 @@ import MovieCard from './MovieCard'
 
 
 const MovieList = ({title,movies}) => {
-    console.log(movies)
+    
   return (
     <div>
-       <div className='px-4 bg-black'>
-            <h1 className='text-4xl py-4 text-white'>{title}</h1>
+       <div className='pl-4 bg-blend-color-burn'>
+            <h1 className='text-3xl py-4 pl-4 text-white'>{title}</h1>
           <div className='flex overflow-x-scroll scrollbar-hide'>
              <div className='flex'>
 

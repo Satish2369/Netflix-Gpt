@@ -7,10 +7,10 @@ const MovieCard = ({posterPath}) => {
 
 
   return (
-    <div className='pr-3  flex-shrink-0'>
+    <div className='pr-3  flex-shrink-0 bg-blend-color-burn '>
         
         <img 
-        className='h-82 w-60 aspect-6/10  bg-color-burn'
+        className='h-82 w-52 aspect-6/10  '
         src={IMG_CDN + posterPath}
          alt="Movie Card"
           />
