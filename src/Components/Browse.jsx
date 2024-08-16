@@ -13,7 +13,7 @@ useNowPLayingMovies();
 
 
 return (
-  <div className="">
+  <div className=" ">
 
 <Header/>
 <MainContainer/>

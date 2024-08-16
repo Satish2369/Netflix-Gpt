@@ -15,15 +15,23 @@ const movies = useSelector(store => store.movies)
 
 
   return (
-    <div className='pt-[105vh]'>   
+
+    movies.nowPlayingMovies && (
+    <div className='absolute top-[88vh]   z-50 '>   
       
     <MovieList title={"Now Playing"}  movies={movies.nowPlayingMovies}  />
+    <MovieList title={"Trending"}  movies={movies.nowPlayingMovies}  />
+    <MovieList title={"Upcoming"}  movies={movies.nowPlayingMovies}  />
+    <MovieList title={"Horror"}  movies={movies.nowPlayingMovies}  />
+    <MovieList title={"Love and Fantasy"}  movies={movies.nowPlayingMovies}  />
+
 
 
 
 
 
     </div>
+    )
   )
 }
 

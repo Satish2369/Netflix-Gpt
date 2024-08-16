@@ -11,7 +11,7 @@ useMovieTrailer(movieId);
 //fetching trailer video
 
   return (
-    <div className='w-full  h-[100vh]  absolute -translate-y-[15%] z-0'>
+    <div className='w-full  h-[100vh]  absolute -translate-y-[12%] z-0'>
        <iframe 
          className='w-full aspect-video '
         
