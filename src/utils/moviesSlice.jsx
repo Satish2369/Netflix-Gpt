@@ -8,7 +8,7 @@ initialState:{
    trailerVideo:null
 },
 reducers:{
-addNOwPlayingMovies:(state,action)=>{
+addNowPlayingMovies:(state,action)=>{
     state.nowPlayingMovies = action.payload
  
 },
@@ -22,7 +22,7 @@ addTrailerVideo: (state,action) =>{
 
     }
 )
-export const {addNOwPlayingMovies,addTrailerVideo } = moviesSlice.actions
+export const {addNowPlayingMovies,addTrailerVideo } = moviesSlice.actions
 
 export default moviesSlice.reducer;
 

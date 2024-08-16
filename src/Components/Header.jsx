@@ -71,8 +71,8 @@ return () => unsubscribe();
 
 
   return (
-    <div className='w-full absolute px-8 py-2  bg-gradient-to-b from-black z-10 flex justify-between  '>
-  <img src={LOGO} className='h-18 w-44  ' alt="logo" />
+    <div className='w-full absolute px-8 py-2  bg-gradient-to-b from-black z-30 flex justify-between  '>
+  <img src={LOGO} className='h-18 w-44 ' alt="logo" />
 
 
 { user && (
@@ -82,10 +82,7 @@ return () => unsubscribe();
 
 
   <button className='bg-red-700 text-white p-1 border-zinc-800 px-2 font-bold'
-  
   onClick={handleSignOut}
-  
-  
   >Sign Out</button>
 </div>
 )

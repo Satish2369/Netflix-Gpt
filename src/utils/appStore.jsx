@@ -11,14 +11,7 @@ reducer:{
 user:userReducer,
 movies:moviesReducer,
 
-
-
-
 }
-
-
-
-
 
 
 }
